@@ -230,6 +230,7 @@ NSString * const MCOAppDelegateStartAtLoginKey = @"de.pre-apha.Temporary.MCOAppD
 - (IBAction)donePressed:(id)sender
 {
     [self.preferencesPanel close];
+    [self checkDirectory:nil];
 }
 
 - (IBAction)quitPressed:(id)sender
