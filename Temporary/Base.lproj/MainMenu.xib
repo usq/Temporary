@@ -15,6 +15,8 @@
             <connections>
                 <outlet property="menu" destination="XcV-wJ-301" id="a11-7p-HWg"/>
                 <outlet property="preferencesPanel" destination="w1i-ap-lln" id="Hv1-fK-S6U"/>
+                <outlet property="startAtLoginCheckbox" destination="3G7-fp-NnP" id="MMu-If-AIk"/>
+                <outlet property="textfield" destination="44d-qZ-ggD" id="5IC-mr-U16"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -669,22 +671,72 @@
         </menu>
         <menu id="XcV-wJ-301">
             <items>
-                <menuItem title="preferences" id="OKh-jw-T5w">
+                <menuItem title="Preferences" id="OKh-jw-T5w">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="preferencesClicked:" target="Voe-Tx-rLC" id="ZqK-4s-2sl"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Quit" id="G57-QV-gIy">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="quitPressed:" target="Voe-Tx-rLC" id="FeS-XF-rHW"/>
+                    </connections>
+                </menuItem>
             </items>
         </menu>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" animationBehavior="default" id="w1i-ap-lln" customClass="NSPanel">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="w1i-ap-lln" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="132" width="276" height="378"/>
+            <rect key="contentRect" x="196" y="132" width="425" height="93"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
             <view key="contentView" id="YhH-i8-T97">
-                <rect key="frame" x="0.0" y="0.0" width="276" height="378"/>
+                <rect key="frame" x="0.0" y="0.0" width="425" height="93"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="44d-qZ-ggD">
+                        <rect key="frame" x="20" y="51" width="280" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="path to temporary folder" drawsBackground="YES" id="EHq-Ix-Qqf">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zyQ-mr-zbp">
+                        <rect key="frame" x="302" y="45" width="109" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="select folder" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DVf-E9-s84">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="selectFolderPressed:" target="Voe-Tx-rLC" id="PhH-gV-yvc"/>
+                        </connections>
+                    </button>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3G7-fp-NnP">
+                        <rect key="frame" x="18" y="15" width="103" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="start at login" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="X5N-GR-KnC">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="startAtLoginChanged:" target="Voe-Tx-rLC" id="9s0-oW-xvw"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wBa-lr-rtB">
+                        <rect key="frame" x="302" y="10" width="109" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="done" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="c33-aR-mXg">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="donePressed:" target="Voe-Tx-rLC" id="Ix0-Qb-Uwv"/>
+                        </connections>
+                    </button>
+                </subviews>
             </view>
         </window>
     </objects>
