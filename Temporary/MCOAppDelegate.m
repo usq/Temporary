@@ -31,21 +31,22 @@ NSString * const MCOAppDelegateStartAtLoginKey = @"de.pre-apha.Temporary.MCOAppD
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    self.timeIntervalToCheck = 60 * 30;
+    self.timeIntervalToCheck = 60 * 30; //every 30 minutes
     [NSApp activateIgnoringOtherApps:YES];
     
-    self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+    self.statusItem = ({
+        NSStatusItem *statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+        statusBarItem.highlightMode = YES;
+        statusBarItem.title = @"⌛️";
+        //TODO: add tooltip
+        [statusBarItem setEnabled:YES];
+        statusBarItem.menu = self.menu;
+        statusBarItem;
+    });
     
-    [self.statusItem setHighlightMode:YES];
-    [self.statusItem setTitle:@"⌛️"];
-    [self.statusItem setToolTip:@"doing stuff..."];
-    [self.statusItem setEnabled:YES];
-    self.statusItem.menu = self.menu;
-    
-
     self.timer = [NSTimer scheduledTimerWithTimeInterval:self.timeIntervalToCheck
                                                   target:self
-                                                selector:@selector(checkDirectory:)
+                                                selector:@selector(deleteOutdatedFilesInTempDirectory:)
                                                 userInfo:nil
                                                  repeats:YES];
 
@@ -53,7 +54,7 @@ NSString * const MCOAppDelegateStartAtLoginKey = @"de.pre-apha.Temporary.MCOAppD
     self.startAtLogin = [[NSUserDefaults standardUserDefaults] boolForKey:MCOAppDelegateStartAtLoginKey];
 }
 
-- (void)checkDirectory:(id)userInfo
+- (void)deleteOutdatedFilesInTempDirectory:(id)userInfo
 {
     if(self.pathToTempDirectory != nil)
     {
@@ -61,7 +62,6 @@ NSString * const MCOAppDelegateStartAtLoginKey = @"de.pre-apha.Temporary.MCOAppD
         NSArray *filesInTmpDirectory = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.pathToTempDirectory
                                                                                            error:&error];
         NSDate *now = [NSDate date];
-        
         NSMutableArray *foldersToDelete = [NSMutableArray array];
         
         if(error == nil)
@@ -72,65 +72,61 @@ NSString * const MCOAppDelegateStartAtLoginKey = @"de.pre-apha.Temporary.MCOAppD
                 NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:pathOfFileInDirectory
                                                                                                 error:&error];
                 
-                
                 NSDate *folderAge = fileAttributes[NSFileCreationDate];
                 NSTimeInterval ageInSeconds = [now timeIntervalSinceDate:folderAge];
                 
-                
-                NSTimeInterval secondsToLive = ({
-                    NSScanner *s = [NSScanner scannerWithString:oneFilenameInDirectory];
-                    [s scanUpToCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet]
-                                      intoString:nil];
-                    
-                    NSString *daysToLive;
-                    BOOL scanned =[s scanCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet]
-                                                intoString:&daysToLive];
-                    
-                    NSTimeInterval t = CGFLOAT_MAX;
-                    if(scanned)
-                    {
-                        t = [daysToLive intValue] * 3600 * 24;
-                    }
-                    t;
-                });
+                NSTimeInterval secondsToLive = [self secondsRemainingForFileAtPath:oneFilenameInDirectory];
                 
                 if(secondsToLive < ageInSeconds)
                 {
                     NSLog(@"deleting folder");
                     [foldersToDelete addObject:pathOfFileInDirectory];
                 }
-                
-                NSLog(@"file/folder:%@   age: %f secondsToLife:%f",oneFilenameInDirectory,ageInSeconds,secondsToLive);
-                
+//              NSLog(@"file/folder:%@   age: %f secondsToLife:%f",oneFilenameInDirectory,ageInSeconds,secondsToLive);
             }
-            
-            [self deleteFolders:foldersToDelete];
+            [self deleteFilesAtPaths:foldersToDelete];
         }
         else
         {
             NSLog(@"error accessing folder: %@",error);
         }
-        
     }
     else
     {
         NSLog(@"path not set");
     }
-    
 }
 
-- (void)deleteFolders:(NSArray *)foldersToDelete
+
+- (NSTimeInterval)secondsRemainingForFileAtPath:(NSString *)filePath
 {
+    NSScanner *s = [NSScanner scannerWithString:filePath];
+    [s scanUpToCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet]
+                      intoString:nil];
     
-    NSError *removingFolderError;
-    for (NSString *oneFolderToDelete in foldersToDelete) {
+    NSString *daysToLive;
+    BOOL scanned =[s scanCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet]
+                                intoString:&daysToLive];
+    
+    NSTimeInterval t = CGFLOAT_MAX;
+    if(scanned)
+    {
+        t = [daysToLive intValue] * 3600 * 24;
+    }
+    return t;
+}
+
+- (void)deleteFilesAtPaths:(NSArray *)pathsToDelete
+{
+    NSError *removeFileError;
+    for (NSString *oneFolderToDelete in pathsToDelete) {
         
 
         [[NSFileManager defaultManager] removeItemAtPath:oneFolderToDelete
-                                                   error:&removingFolderError];
-        if(removingFolderError)
+                                                   error:&removeFileError];
+        if(removeFileError)
         {
-            NSLog(@"error removing folder: %@", removingFolderError);
+            NSLog(@"error removing folder: %@", removeFileError);
         }
     }
     
@@ -193,6 +189,8 @@ NSString * const MCOAppDelegateStartAtLoginKey = @"de.pre-apha.Temporary.MCOAppD
 	CFRelease(loginItems);
 }
 
+
+
 -(void) deleteAppFromLoginItem
 {
 	NSString * appPath = [[NSBundle mainBundle] bundlePath];
@@ -230,7 +228,7 @@ NSString * const MCOAppDelegateStartAtLoginKey = @"de.pre-apha.Temporary.MCOAppD
 - (IBAction)donePressed:(id)sender
 {
     [self.preferencesPanel close];
-    [self checkDirectory:nil];
+    [self deleteOutdatedFilesInTempDirectory:nil];
 }
 
 - (IBAction)quitPressed:(id)sender
