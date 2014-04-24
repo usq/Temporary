@@ -106,15 +106,15 @@ NSString * const MCOAppDelegateStartAtLoginKey = @"de.pre-apha.Temporary.MCOAppD
                       intoString:nil];
     
     NSString *daysToLive;
-    BOOL scanned =[s scanCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet]
+    BOOL didScanNumber =[s scanCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet]
                                 intoString:&daysToLive];
     
-    NSTimeInterval t = CGFLOAT_MAX;
-    if(scanned)
+    NSTimeInterval remainingSeconds = CGFLOAT_MAX;
+    if(didScanNumber)
     {
-        t = [daysToLive intValue] * 3600 * 24;
+        remainingSeconds = [daysToLive intValue] * 3600 * 24;
     }
-    return t;
+    return remainingSeconds;
 }
 
 - (void)deleteFilesAtPaths:(NSArray *)pathsToDelete
