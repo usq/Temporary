@@ -14,9 +14,10 @@
         <customObject id="Voe-Tx-rLC" customClass="MCOAppDelegate">
             <connections>
                 <outlet property="menu" destination="XcV-wJ-301" id="a11-7p-HWg"/>
+                <outlet property="pathTextfield" destination="44d-qZ-ggD" id="oby-Sf-c0x"/>
                 <outlet property="preferencesPanel" destination="w1i-ap-lln" id="Hv1-fK-S6U"/>
                 <outlet property="startAtLoginCheckbox" destination="3G7-fp-NnP" id="MMu-If-AIk"/>
-                <outlet property="textfield" destination="44d-qZ-ggD" id="5IC-mr-U16"/>
+                <outlet property="timeTextfield" destination="RNF-2h-HKt" id="v0g-cd-eUA"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -688,14 +689,14 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="w1i-ap-lln" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="132" width="425" height="93"/>
+            <rect key="contentRect" x="196" y="132" width="582" height="144"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
             <view key="contentView" id="YhH-i8-T97">
-                <rect key="frame" x="0.0" y="0.0" width="425" height="93"/>
+                <rect key="frame" x="0.0" y="0.0" width="582" height="144"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="44d-qZ-ggD">
-                        <rect key="frame" x="20" y="51" width="280" height="22"/>
+                        <rect key="frame" x="177" y="100" width="280" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="path to temporary folder" drawsBackground="YES" id="EHq-Ix-Qqf">
                             <font key="font" metaFont="system"/>
@@ -704,7 +705,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zyQ-mr-zbp">
-                        <rect key="frame" x="302" y="45" width="109" height="32"/>
+                        <rect key="frame" x="459" y="94" width="109" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="select folder" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DVf-E9-s84">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -715,9 +716,9 @@
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3G7-fp-NnP">
-                        <rect key="frame" x="18" y="15" width="103" height="18"/>
+                        <rect key="frame" x="86" y="18" width="103" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="start at login" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="X5N-GR-KnC">
+                        <buttonCell key="cell" type="check" title="start at login" bezelStyle="regularSquare" imagePosition="right" state="on" inset="2" id="X5N-GR-KnC">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -726,7 +727,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wBa-lr-rtB">
-                        <rect key="frame" x="302" y="10" width="109" height="32"/>
+                        <rect key="frame" x="459" y="10" width="109" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="done" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="c33-aR-mXg">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -736,6 +737,48 @@
                             <action selector="donePressed:" target="Voe-Tx-rLC" id="Ix0-Qb-Uwv"/>
                         </connections>
                     </button>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RNF-2h-HKt">
+                        <rect key="frame" x="177" y="50" width="48" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="0.5" drawsBackground="YES" id="ucl-mV-DJ8">
+                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="YEh-rE-ZPs"/>
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <action selector="textfieldEdited:" target="Voe-Tx-rLC" id="fxX-IF-LOt"/>
+                        </connections>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t8S-Wu-hlC">
+                        <rect key="frame" x="8" y="81" width="163" height="41"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" id="MQn-lq-SEK">
+                            <font key="font" metaFont="system"/>
+                            <string key="title">the folder which will be 
+cleaned periodically</string>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PcA-V7-hgA">
+                        <rect key="frame" x="93" y="53" width="78" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="check every" id="9fX-Xg-cxv">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PN5-qg-uW9">
+                        <rect key="frame" x="230" y="53" width="40" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="hours" id="Ihx-6h-a8x">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
         </window>

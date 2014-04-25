@@ -28,6 +28,8 @@
 		A3B0B95C19098B2300532ABF /* icon_32x32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3B0B95219098B2300532ABF /* icon_32x32@2x.png */; };
 		A3B0B95D19098B2300532ABF /* icon_512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = A3B0B95319098B2300532ABF /* icon_512x512.png */; };
 		A3B0B95E19098B2300532ABF /* icon_512x512@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3B0B95419098B2300532ABF /* icon_512x512@2x.png */; };
+		A3B0B965190A67B200532ABF /* MCOTemporaryFilesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3B0B964190A67B200532ABF /* MCOTemporaryFilesManager.m */; };
+		A3B0B968190A6F2400532ABF /* MCOLoginItemsService.m in Sources */ = {isa = PBXBuildFile; fileRef = A3B0B967190A6F2400532ABF /* MCOLoginItemsService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +72,10 @@
 		A3B0B95219098B2300532ABF /* icon_32x32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_32x32@2x.png"; sourceTree = "<group>"; };
 		A3B0B95319098B2300532ABF /* icon_512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_512x512.png; sourceTree = "<group>"; };
 		A3B0B95419098B2300532ABF /* icon_512x512@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_512x512@2x.png"; sourceTree = "<group>"; };
+		A3B0B963190A67B200532ABF /* MCOTemporaryFilesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCOTemporaryFilesManager.h; sourceTree = "<group>"; };
+		A3B0B964190A67B200532ABF /* MCOTemporaryFilesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCOTemporaryFilesManager.m; sourceTree = "<group>"; };
+		A3B0B966190A6F2400532ABF /* MCOLoginItemsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCOLoginItemsService.h; sourceTree = "<group>"; };
+		A3B0B967190A6F2400532ABF /* MCOLoginItemsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCOLoginItemsService.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,12 +141,16 @@
 		A3B0B8D6190918D700532ABF /* Temporary */ = {
 			isa = PBXGroup;
 			children = (
-				A3B0B94A19098B2300532ABF /* temporary_icons */,
+				A3B0B8E8190918D700532ABF /* Images.xcassets */,
+				A3B0B8E5190918D700532ABF /* MainMenu.xib */,
 				A3B0B8E2190918D700532ABF /* MCOAppDelegate.h */,
 				A3B0B8E3190918D700532ABF /* MCOAppDelegate.m */,
-				A3B0B8E5190918D700532ABF /* MainMenu.xib */,
-				A3B0B8E8190918D700532ABF /* Images.xcassets */,
+				A3B0B963190A67B200532ABF /* MCOTemporaryFilesManager.h */,
+				A3B0B964190A67B200532ABF /* MCOTemporaryFilesManager.m */,
 				A3B0B8D7190918D700532ABF /* Supporting Files */,
+				A3B0B94A19098B2300532ABF /* temporary_icons */,
+				A3B0B966190A6F2400532ABF /* MCOLoginItemsService.h */,
+				A3B0B967190A6F2400532ABF /* MCOLoginItemsService.m */,
 			);
 			path = Temporary;
 			sourceTree = "<group>";
@@ -300,8 +310,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3B0B968190A6F2400532ABF /* MCOLoginItemsService.m in Sources */,
 				A3B0B8E4190918D700532ABF /* MCOAppDelegate.m in Sources */,
 				A3B0B8DD190918D700532ABF /* main.m in Sources */,
+				A3B0B965190A67B200532ABF /* MCOTemporaryFilesManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
