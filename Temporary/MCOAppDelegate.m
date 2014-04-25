@@ -55,6 +55,7 @@ NSString * const MCOAppDelegateStartAtLoginKey = @"de.pre-apha.Temporary.MCOAppD
     self.tempFilesManager = [[MCOTemporaryFilesManager alloc] initWithPath:[[NSUserDefaults standardUserDefaults] stringForKey:MCOAppDelegateTempDirectoryPathKey]];
     
     self.startAtLogin = [[NSUserDefaults standardUserDefaults] boolForKey:MCOAppDelegateStartAtLoginKey];
+    [self.startAtLoginCheckbox setHidden:YES];
 }
 
 
