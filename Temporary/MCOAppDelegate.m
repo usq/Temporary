@@ -8,7 +8,6 @@
 
 #import "MCOAppDelegate.h"
 #import "MCOTemporaryFilesManager.h"
-#import "MCOLoginItemsService.h"
 
 
 
@@ -88,20 +87,7 @@ NSString * const MCOAppDelegateStartAtLoginKey = @"de.pre-apha.Temporary.MCOAppD
 
 - (IBAction)startAtLoginChanged:(id)sender
 {
-    if(self.startAtLoginCheckbox.state == NSOnState)
-    {
-        self.startAtLogin = YES;
-        [MCOLoginItemsService addApplicationToLoginItems];
-    }
-    else
-    {
-        self.startAtLogin = NO;
-        [MCOLoginItemsService removeApplicationFromLoginItems];
-    }
-    
-    [[NSUserDefaults standardUserDefaults] setBool:self.startAtLogin
-                                            forKey:MCOAppDelegateStartAtLoginKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+ 
 }
 
 - (IBAction)textfieldEdited:(id)sender

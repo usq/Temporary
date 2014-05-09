@@ -7,6 +7,7 @@
 //
 
 #import "MCOTemporaryFilesManager.h"
+#import "MCOFolderScanner.h"
 
 @interface MCOTemporaryFilesManager ()
 @property (nonatomic, strong, readwrite) NSTimer *timer;
@@ -34,30 +35,21 @@
         NSError *error;
         NSArray *filesInTmpDirectory = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.pathToTempDirectory
                                                                                            error:&error];
-        NSDate *now = [NSDate date];
-        NSMutableArray *foldersToDelete = [NSMutableArray array];
+        MCOFolderScanner *scanner = [[MCOFolderScanner alloc] init];
         
         if(error == nil)
         {
             for (NSString *oneFilenameInDirectory in filesInTmpDirectory)
             {
                 NSString *pathOfFileInDirectory = [self.pathToTempDirectory stringByAppendingPathComponent:oneFilenameInDirectory];
-                NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:pathOfFileInDirectory
-                                                                                                error:&error];
-                
-                NSDate *folderAge = fileAttributes[NSFileCreationDate];
-                NSTimeInterval ageInSeconds = [now timeIntervalSinceDate:folderAge];
-                
+                NSTimeInterval ageInSeconds = [scanner ageOfFolderAtPath:pathOfFileInDirectory];
                 NSTimeInterval secondsToLive = [self secondsRemainingForFileAtPath:oneFilenameInDirectory];
                 
                 if(secondsToLive < ageInSeconds)
                 {
-                    NSLog(@"deleting folder");
-                    [foldersToDelete addObject:pathOfFileInDirectory];
+                    [scanner moveToTrash:pathOfFileInDirectory];
                 }
-                //NSLog(@"file/folder:%@   age: %f secondsToLife:%f",oneFilenameInDirectory,ageInSeconds,secondsToLive);
             }
-            [self deleteFilesAtPaths:foldersToDelete];
         }
         else
         {
@@ -108,21 +100,6 @@
                                                  repeats:YES];
 }
 
-- (void)deleteFilesAtPaths:(NSArray *)pathsToDelete
-{
-    NSError *removeFileError;
-    for (NSString *oneFolderToDelete in pathsToDelete) {
-        
-        
-        [[NSFileManager defaultManager] removeItemAtPath:oneFolderToDelete
-                                                   error:&removeFileError];
-        if(removeFileError)
-        {
-            NSLog(@"error removing folder: %@", removeFileError);
-        }
-    }
-    
-}
 
 - (NSString *)pathToTempDirectory
 {
